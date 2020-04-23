@@ -1,6 +1,5 @@
-package vn.edu.hust.mail;
+package vn.edu.hust.mail.adapter;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +8,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
+
+import vn.edu.hust.mail.R;
+import vn.edu.hust.mail.model.MailModel;
 
 public class MailAdapter extends BaseAdapter {
 
-    List<ItemModel> itemModelList;
+    List<MailModel> mailModelList;
 
-    public MailAdapter(List<ItemModel> itemModelList){
-        this.itemModelList = itemModelList;
+    public MailAdapter(List<MailModel> mailModelList){
+        this.mailModelList = mailModelList;
     }
 
     @Override
     public int getCount() {
-        return itemModelList.size();
+        return mailModelList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return itemModelList.get(position);
+        return mailModelList.get(position);
     }
 
     @Override
@@ -58,22 +58,22 @@ public class MailAdapter extends BaseAdapter {
                 viewHolder = (ViewHolder) view.getTag();
         }
 
-        final ItemModel itemModel = itemModelList.get(position);
+        final MailModel mailModel = mailModelList.get(position);
 
-        viewHolder.txtBackground.setText(itemModel.name.substring(0, 1));
-        viewHolder.timeStamp.setText(itemModel.timeStamp);
-        viewHolder.name.setText(itemModel.name);
-        viewHolder.header.setText(itemModel.header);
-        viewHolder.content.setText(itemModel.content);
+        viewHolder.txtBackground.setText(mailModel.getName().substring(0, 1));
+        viewHolder.timeStamp.setText(mailModel.getTimeStamp());
+        viewHolder.name.setText(mailModel.getName());
+        viewHolder.header.setText(mailModel.getHeader());
+        viewHolder.content.setText(mailModel.getContent());
 
-        if(itemModel.favorite) viewHolder.imageFavorite.setImageResource(R.drawable.favorite);
+        if(mailModel.isFavorite()) viewHolder.imageFavorite.setImageResource(R.drawable.favorite);
         else viewHolder.imageFavorite.setImageResource(R.drawable.normal);
 
         viewHolder.imageFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isFavorite = itemModelList.get(position).favorite;
-                itemModelList.get(position).favorite = !isFavorite;
+                boolean isFavorite = mailModelList.get(position).isFavorite();
+                mailModelList.get(position).setFavorite(!isFavorite);
                 notifyDataSetChanged();
             }
         });
@@ -81,8 +81,8 @@ public class MailAdapter extends BaseAdapter {
         viewHolder.txtBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isSelected = itemModelList.get(position).choosen;
-                itemModelList.get(position).choosen = !isSelected;
+                boolean isSelected = mailModelList.get(position).isChoosen();
+                mailModelList.get(position).setChoosen(!isSelected);
                 viewHolder.imageAvatar.setVisibility(View.VISIBLE);
                 viewHolder.txtBackground.setVisibility(View.INVISIBLE);
                 viewHolder.name.setBackgroundColor(0x0000BBBB);
@@ -93,8 +93,8 @@ public class MailAdapter extends BaseAdapter {
         viewHolder.imageAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isSelected = itemModelList.get(position).choosen;
-                itemModelList.get(position).choosen = !isSelected;
+                boolean isSelected = mailModelList.get(position).isChoosen();
+                mailModelList.get(position).setChoosen(!isSelected);
                 viewHolder.imageAvatar.setVisibility(View.INVISIBLE);
                 viewHolder.txtBackground.setVisibility(View.VISIBLE);
                 viewHolder.name.setBackgroundColor(0x0000FFFF);
