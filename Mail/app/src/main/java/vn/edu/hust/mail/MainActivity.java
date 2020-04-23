@@ -140,7 +140,9 @@ public class MainActivity extends AppCompatActivity implements MailItemClickList
         ArrayList<MailModel> filteredList = new ArrayList<>();
         String queryToLowerCase = query.toLowerCase();
         for(MailModel item : items){
-            if(item.getName().toLowerCase().contains(queryToLowerCase) || item.getContent().toLowerCase().contains(queryToLowerCase)){
+            if(item.getName().toLowerCase().contains(queryToLowerCase)
+            || item.getContent().toLowerCase().contains(queryToLowerCase)
+            || item.getHeader().toLowerCase().contains(queryToLowerCase)){
                 filteredList.add(item);
             }
             adapter.filterList(filteredList);
