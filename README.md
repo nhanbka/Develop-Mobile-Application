@@ -5,5 +5,8 @@
 
 - Mail:
 	GMail-like GUI.
+
+- File Manager:
+	File Manager Android
 	
 LeTrongNhan - 20173292
